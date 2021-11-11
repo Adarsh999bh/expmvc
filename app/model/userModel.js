@@ -29,7 +29,14 @@ class UserModel{
 
     loginUser = (body,callback)=>{
         return myUser.findOne({email:body.email}, (err,data) => {
-            return err ? callback(err,null) : data === null ? callback("email ID is not present") : callback(null,data);
+            return err ? 
+            callback(err,null) : 
+            data === null ? 
+            callback({
+                message:"email ID is not present",
+                statusCode:401
+            },null) : 
+            callback(null,data);
         });
     };
 
@@ -43,7 +50,9 @@ class UserModel{
             password: encryptedPassword
         });
         return user.save((err,data)=>{
-            return err ? callback(err,null) : callback(null,data);
+            return err ? 
+            callback(err,null) : 
+            callback(null,data);
         });
     };
 
@@ -59,20 +68,31 @@ class UserModel{
             },
             { new: true },
             (err, data) => {
-              return err ? callback(err, null) : callback(null, data);
+              return err ? 
+              callback(err, null) : 
+              callback(null, data);
             }
         );
     };
 
     deleteUser = (userID,callback) => {
         return myUser.findByIdAndRemove(userID,(err,data)=>{
-            return err ? callback(err,null):callback(null,data);
+            return err ? 
+            callback(err,null):
+            callback(null,data);
         });
     };
 
     getUser = (email,callback) =>{
         return myUser.findOne({email:email},(err,data)=>{
-            return err ? callback(err,null): data===null ? callback("email not found",null):callback(null,data);
+            return err ? 
+            callback(err,null): 
+            data===null ? 
+            callback({
+                message:"email not found",
+                statusCode:404
+            },null):
+            callback(null,data);
         });
     };
 }
