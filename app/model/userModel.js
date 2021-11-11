@@ -30,7 +30,10 @@ class UserModel{
     loginUser = (body,callback)=>{
         return myUser.findOne({email:body.email}, (err,data) => {
             return err ? 
-            callback(err,null) : 
+            callback({
+                message:err,
+                statusCode:500
+            },null) : 
             data === null ? 
             callback({
                 message:"email ID is not present",
@@ -51,7 +54,10 @@ class UserModel{
         });
         return user.save((err,data)=>{
             return err ? 
-            callback(err,null) : 
+            callback({
+                message:err,
+                statusCode:500
+            },null) : 
             callback(null,data);
         });
     };
@@ -69,7 +75,10 @@ class UserModel{
             { new: true },
             (err, data) => {
               return err ? 
-              callback(err, null) : 
+              callback({
+                  message:err,
+                  statusCode:500
+              }, null) : 
               callback(null, data);
             }
         );
@@ -78,7 +87,10 @@ class UserModel{
     deleteUser = (userID,callback) => {
         return myUser.findByIdAndRemove(userID,(err,data)=>{
             return err ? 
-            callback(err,null):
+            callback({
+                message:err,
+                statusCode:500
+            },null):
             callback(null,data);
         });
     };
@@ -86,7 +98,10 @@ class UserModel{
     getUser = (email,callback) =>{
         return myUser.findOne({email:email},(err,data)=>{
             return err ? 
-            callback(err,null): 
+            callback({
+                message:err,
+                statusCode:500
+            },null): 
             data===null ? 
             callback({
                 message:"email not found",

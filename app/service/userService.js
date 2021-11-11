@@ -7,7 +7,10 @@ class UserService{
     loginUser=(body,callback)=>{
         userModel.loginUser(body,(err,data)=>{
             if(err){
-                return callback(err,null);
+                return callback({
+                    message:err.message,
+                    statusCode:err.statusCode
+                },null);
             }
             else{
                 if(bcrypt.compareSync(body.password,data.password)){
@@ -30,7 +33,10 @@ class UserService{
 
         userModel.createUser(body,(err,data)=>{
             return err ?
-            callback(err,null):
+            callback({
+                message:err.message,
+                statusCode:err.statusCode
+            },null):
             callback(null,data);
         });
     };
@@ -39,7 +45,10 @@ class UserService{
 
         userModel.updateUser(userID,body,(err,data)=>{
             err ?
-            callback(err,null):
+            callback({
+                message:err.message,
+                statusCode:err.statusCode
+            },null):
             callback(null,data);
         });
     };
@@ -48,14 +57,20 @@ class UserService{
 
         userModel.deleteUser(userID,(err,data)=>{
             err ?
-            callback(err,null):
+            callback({
+                message:err.message,
+                statusCode:err.statusCode
+            },null):
             callback(null,data);
         });
     };
     getUser=(email,callback)=>{
         userModel.getUser(email,(err,data)=>{
             err ?
-            callback(err,null):
+            callback({
+                message:err.message,
+                statusCode:err.statusCode
+            },null):
             callback(null,data);
         });
     };

@@ -2,14 +2,13 @@ const express=require('express');
 const userRoute=express.Router();
 const { body } = require('express-validator');
 const cors=require('cors');
+const userController = require('../controller/userController');
 
 
 userRoute.post(
     "/login",
     cors(),
-    (req,res)=>{
-
-    }
+    userController.loginUser
 )
 
 userRoute.post(
@@ -33,16 +32,12 @@ userRoute.post(
     .isEmail()
     .withMessage("Enter a valid Email"
     ),
-    (req,res)=>{
-
-    }
+    userController.createUser
 );
 
 userRoute.get(
   "/getuser",
-  (req,res) => {
-
-  }
+  userController.getUser
 );
 
 userRoute.put(
@@ -66,15 +61,11 @@ userRoute.put(
     .isEmail()
     .withMessage("Enter a valid Email"
     ),
-    (req,res)=>{
-
-    }
+    userController.updateUser
 );
 
 userRoute.delete(
   "/deleteuser",
-  (req,res) => {
-
-  }
+  userController.deleteUser
 );
 
