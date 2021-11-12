@@ -74,6 +74,21 @@ class UserService{
             callback(null,data);
         });
     };
+
+    forgotpass=(email,callback)=>{
+        userModel.getUser(email,(err,data)=>{
+            if(err){
+                callback({
+                    message:err.message,
+                    statusCode:err.statusCode
+                });
+            }
+            else{
+                console.log(data);
+                callback(null,data);
+            }
+        });
+    };
 }
 
 module.exports=new UserService();

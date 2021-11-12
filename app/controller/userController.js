@@ -66,6 +66,7 @@ class UserController{
 
     deleteUser=(req,res)=>{
         let userID=req.params.userID;
+        console.log(userID);
         userService.deleteUser(userID,(err,data)=>{
             if(err){
                 //logg error here
@@ -93,6 +94,20 @@ class UserController{
                 res.status(200).send(data);
             }
         });
+    };
+
+    forgotpass=(req,res)=>{
+    //     userService.getUser(req.body.email,(err,data)=>{
+    //         if(err){
+    //             console.log(err);
+    //             res.status(err.statusCode).send(err.message);
+    //         }
+    //         else{
+    //             //generate jwt token and send email with validity of 10 mins
+
+    //         }
+    //     });
+    
     };
 }
 

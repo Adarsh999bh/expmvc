@@ -41,7 +41,7 @@ userRoute.get(
 );
 
 userRoute.put(
-    "/update",
+    "/update/:userID",
     cors(),
     body("firstName")
     .matches("^[A-Z][a-zA-Z]{2,}")
@@ -65,7 +65,16 @@ userRoute.put(
 );
 
 userRoute.delete(
-  "/deleteuser",
+  "/deleteuser/:userID",
   userController.deleteUser
 );
+
+userRoute.post(
+  "/forgotpass",
+  (req,res)=>{
+    
+  }
+)
+
+module.exports=userRoute
 
