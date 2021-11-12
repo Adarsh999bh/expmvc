@@ -1,6 +1,7 @@
 const userModel=require('../model/userModel');
 const bcrypt=require('bcrypt');
-
+const {generateToken}=require('../../utility/jwt');
+const {createEmail}=require('../../utility/mailer');
 
 class UserService{
 
@@ -17,7 +18,12 @@ class UserService{
                     //token gen
                     //return login success with token
 
-                    return callback(null,data);
+                    return callback(null,{
+                        token:generateToken({
+                            email:data.email,
+                            _id:data._id
+                        })
+                    });
                 }
                 else{
                     return callback({
@@ -84,8 +90,18 @@ class UserService{
                 });
             }
             else{
+                createEmail({
+                    to:data.email,
+                    subject:"Reset Password Link",
+                    text:`<a href="http://localhost:4000/user/reset/${generateToken({
+                        email:data.email,
+                        _id:data._id
+                    })}"</a>`
+                });
                 console.log(data);
-                callback(null,data);
+                callback(null,{
+                    message:"email sent successfully"
+                });
             }
         });
     };

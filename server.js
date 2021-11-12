@@ -29,6 +29,7 @@ const server=app.listen(4000,()=>{
 
     dbconn.dbConnection();
 
+    logger.info("server created")
     console.log("server created");
 
 });
