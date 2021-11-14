@@ -64,3 +64,4 @@ class NoteModel{
     };
 
 }
+module.exports=new NoteModel();
