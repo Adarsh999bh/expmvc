@@ -1,12 +1,14 @@
 const userService=require('../service/userService')
 const { validationResult } = require("express-validator");
 const logger = require('../../config/logger');
+const { response } = require('express');
 
 
 class UserController{
 
     loginUser=(req,res)=>{
         let body = req.body;
+        console.log(body);
         userService.loginUser(body,(err,data)=>{
             if(err){
                 //logg error here
@@ -120,6 +122,21 @@ class UserController{
                 logger.info("email sent successfully");
                 console.log(data);
                 res.status(200).send(data);
+            }
+        });
+    };
+    reset=(req,res)=>{
+        console.log(req);
+        userService.reset(req.body,(err,data)=>{
+            if(err){
+                console.log(err);
+                logger.error(err);
+                res.status(err.statusCode).send(err.message);
+            }
+            else{
+                console.log("resetted password successfully");
+                logger.info("resetted password successfully");
+                res.status(200).send("password resetted");
             }
         });
     };

@@ -3,6 +3,7 @@ const userRoute=express.Router();
 const { body } = require('express-validator');
 const cors=require('cors');
 const userController = require('../controller/userController');
+const Middleware = require('../middleware/userMiddleware');
 
 
 userRoute.post(
@@ -37,6 +38,7 @@ userRoute.post(
 
 userRoute.get(
   "/getuser",
+  cors(),
   userController.getUser
 );
 
@@ -66,14 +68,21 @@ userRoute.put(
 
 userRoute.delete(
   "/deleteuser/:userID",
+  cors(),
   userController.deleteUser
 );
 
 userRoute.post(
   "/forgotpass",
-  (req,res)=>{
-    
-  }
+  cors(),
+  userController.forgotpass
+)
+
+userRoute.post(
+  "/reset/:token",
+  cors(),
+  Middleware.verifyJwt,
+  userController.reset,
 )
 
 module.exports=userRoute

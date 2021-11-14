@@ -10,7 +10,7 @@ class UserService{
             if(err){
                 return callback({
                     message:err.message,
-                    statusCode:err.statusCode
+                    statusCode:err.statusCode || 500
                 },null);
             }
             else{
@@ -21,7 +21,8 @@ class UserService{
                     return callback(null,{
                         token:generateToken({
                             email:data.email,
-                            _id:data._id
+                            _id:data._id,
+                            expiresIn:"1h"
                         })
                     });
                 }
@@ -41,7 +42,7 @@ class UserService{
             return err ?
             callback({
                 message:err.message,
-                statusCode:err.statusCode
+                statusCode:err.statusCode || 500
             },null):
             callback(null,data);
         });
@@ -53,7 +54,7 @@ class UserService{
             err ?
             callback({
                 message:err.message,
-                statusCode:err.statusCode
+                statusCode:err.statusCode || 500
             },null):
             callback(null,data);
         });
@@ -65,7 +66,7 @@ class UserService{
             err ?
             callback({
                 message:err.message,
-                statusCode:err.statusCode
+                statusCode:err.statusCode || 500
             },null):
             callback(null,data);
         });
@@ -75,7 +76,7 @@ class UserService{
             err ?
             callback({
                 message:err.message,
-                statusCode:err.statusCode
+                statusCode:err.statusCode || 500
             },null):
             callback(null,data);
         });
@@ -86,23 +87,35 @@ class UserService{
             if(err){
                 callback({
                     message:err.message,
-                    statusCode:err.statusCode
+                    statusCode:err.statusCode || 500
                 });
             }
             else{
                 createEmail({
-                    to:data.email,
+                    email:data.email,
                     subject:"Reset Password Link",
-                    text:`<a href="http://localhost:4000/user/reset/${generateToken({
+                    html:`<a href='http://localhost:3000/reset/bearer ${generateToken({
                         email:data.email,
-                        _id:data._id
-                    })}"</a>`
+                        _id:data._id,
+                        expiresIn:"600s"
+                    })}'>click here</a>`,
+                    text:"reset password"
                 });
                 console.log(data);
                 callback(null,{
                     message:"email sent successfully"
                 });
             }
+        });
+    };
+    reset=(body,callback)=>{
+        userModel.reset(body._id,body,(err,data)=>{
+            err ?
+            callback({
+                message:err.message,
+                statusCode:err.statusCode || 500
+            },null):
+            callback(null,data);
         });
     };
 }

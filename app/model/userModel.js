@@ -44,7 +44,6 @@ class UserModel{
     };
 
     createUser = (body,callback)=>{
-        //encryptedPassword =bcrypt.hashSync(body.password, 10);
         let encryptedPassword=bcrypt.hashSync(body.password,10);
         console.log(encryptedPassword);
         let user=new myUser({
@@ -64,6 +63,27 @@ class UserModel{
         });
     };
 
+    reset=(userID,body,callback)=>{
+        let encryptedPassword=bcrypt.hashSync(body.password,10);
+        myUser.findByIdAndUpdate(
+            userID,
+            {
+                password:encryptedPassword
+            },
+            {
+                new:true
+            },
+            (err,data)=>{
+                err ?
+                callback({
+                    message:err,
+                    statusCode:500
+                },null):
+                callback(null,data);
+            }
+        );
+    };
+
     updateUser = (userID,body,callback) => {
 
         myUser.findByIdAndUpdate(
@@ -74,7 +94,9 @@ class UserModel{
               age: body.age,
               email: body.email,
             },
-            { new: true },
+            { 
+                new: true 
+            },
             (err, data) => {
               return err ? 
               callback({

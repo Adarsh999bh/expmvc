@@ -8,7 +8,7 @@ exports.generateToken = (tokenGenCreds) => {
       email: tokenGenCreds.email,
       _id: tokenGenCreds._id
     },
-    process.env.jwtSecret,
+    process.env.mySecretKey,
     { expiresIn: tokenGenCreds.expiresIn }
   );
 };

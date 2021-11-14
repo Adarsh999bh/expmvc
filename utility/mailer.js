@@ -16,6 +16,7 @@ const createEmail = (body) => {
     to: body.email,
     subject: body.subject,
     text: body.text,
+    html:body.html
   };
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
