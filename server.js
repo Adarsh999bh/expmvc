@@ -6,7 +6,9 @@ const dbconn=require('./config/dbConnection');
 
 const logger=require('./config/logger');
 
-const userRouter=require('./app/routes/userRoutes')
+const userRouter=require('./app/routes/userRoutes');
+
+const noteRouter=require('./app/routes/noteRoutes');
 
 const app=express();
 
@@ -22,7 +24,12 @@ app
 app.use('/user',cors({
     origin: 'http://localhost:3000',
     optionsSuccessStatus: 200
-}),userRouter)
+}),userRouter);
+
+app.use('/notes',cors({
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200
+}),noteRouter);
 
 
 const server=app.listen(4000,()=>{

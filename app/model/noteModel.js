@@ -4,7 +4,7 @@ const noteSchema = mongoose.Schema({
     content:String,
     userId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref="FundooNoteUser"
+        ref:"FundooNoteUser"
     }
 },{
     timestamps:true

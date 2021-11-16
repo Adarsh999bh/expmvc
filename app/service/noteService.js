@@ -19,7 +19,7 @@ class NoteService{
     };
 
     updateNote=(body,callback)=>{
-        noteModel.updateNote(body.prop._id,body.prop.title,body.prop.content,(err,data)=>{
+        noteModel.updateNote(body.cardid,body.title,body.content,(err,data)=>{
             err ?
             callback(err,null):
             callback(null,data);
@@ -27,7 +27,7 @@ class NoteService{
     };
 
     deleteNote=(body,callback)=>{
-        noteModel.deleteNote(body.prop._id,(err,data)=>{
+        noteModel.deleteNote(body.cardid,(err,data)=>{
             err ?
             callback(err,null):
             callback(null,data);
