@@ -101,7 +101,6 @@ class UserService{
                     })}'>click here</a>`,
                     text:"reset password"
                 });
-                console.log(data);
                 callback(null,{
                     message:"email sent successfully"
                 });

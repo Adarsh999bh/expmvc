@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const noteSchema = mongoose.Schema({
     title:String,
     content:String,
+    trash:Boolean,
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"FundooNoteUser"
@@ -15,8 +16,9 @@ const FundooNote=mongoose.model("FundooNote",noteSchema);
 class NoteModel{
     createNote=(body,callback)=>{
         let note=new FundooNote({
-            title:body.title,
+            title:body.title || "undefined",
             content:body.content,
+            trash:body.trash,
             userId:body._id
         });
         note.save((err,data)=>{
@@ -30,7 +32,7 @@ class NoteModel{
         FundooNote.find({userId:_id},(err,data)=>{
             err ?
             callback(err,null):
-            callback(null,data);
+            callback(null,data.reverse());
         });
     };
 

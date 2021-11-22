@@ -45,7 +45,6 @@ class UserModel{
 
     createUser = (body,callback)=>{
         let encryptedPassword=bcrypt.hashSync(body.password,10);
-        console.log(encryptedPassword);
         let user=new myUser({
             firstName: body.firstName,
             lastName: body.lastName,

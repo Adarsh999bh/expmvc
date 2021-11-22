@@ -8,18 +8,15 @@ class UserController{
 
     loginUser=(req,res)=>{
         let body = req.body;
-        console.log(body);
         userService.loginUser(body,(err,data)=>{
             if(err){
                 //logg error here
                 logger.error(err);
-                console.log(err);
                 res.status(err.statusCode).send(err.message);
             }
             else{
                 //logg success here
                 logger.info("Login successfull")
-                console.log(data);
                 res.status(200).send(data);
             }
         });
@@ -30,7 +27,6 @@ class UserController{
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             logger.error(errors);
-            console.log("in create validation error");
             res.status(400).json({ errors: errors.array() });
         }
         let body=req.body;
@@ -38,13 +34,11 @@ class UserController{
             if(err){
                 //log error here
                 logger.error(err);
-                console.log(err);
                 res.status(err.statusCode).send(err.message);
             }
             else{
                 //logg success here
                 logger.info("User creation api success");
-                console.log(data);
                 res.status(200).send(data);
             }
         });
@@ -54,7 +48,6 @@ class UserController{
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             logger.error(errors);
-            console.log("in update validatiopn error");
             res.status(400).json({ errors: errors.array() });
         }
         let body=req.body;
@@ -63,13 +56,11 @@ class UserController{
             if(err){
                 //logg error here
                 logger.error(err);
-                console.log(err);
                 res.status(err.statusCode).send(err.message);
             }
             else{
                 //logg success here
                 logger.info("User update api success");
-                console.log(data);
                 res.status(200).send(data);
             }
         });
@@ -77,18 +68,15 @@ class UserController{
 
     deleteUser=(req,res)=>{
         let userID=req.params.userID;
-        console.log(userID);
         userService.deleteUser(userID,(err,data)=>{
             if(err){
                 //logg error here
                 logger.error(err);
-                console.log(err);
                 res.status(err.statusCode).send(err.message);
             }
             else{
                 //logg successful deletion here
                 logger.info("delete user successfull");
-                console.log(data);
                 res.status(204).send(data);
             }
         });
@@ -99,13 +87,11 @@ class UserController{
             if(err){
                 //logg error here
                 logger.error(err);
-                console.log(err);
                 res.status(err.statusCode).send(err.message);
             }
             else{
                 //logg get successs here
                 logger.info("get user api success");
-                console.log(data);
                 res.status(200).send(data);
             }
         });
@@ -115,26 +101,21 @@ class UserController{
         userService.forgotpass(req.body.email,(err,data)=>{
             if(err){
                 logger.error(err);
-                console.log(err);
                 res.status(err.statusCode).send(err.message);
             }
             else{
                 logger.info("email sent successfully");
-                console.log(data);
                 res.status(200).send(data);
             }
         });
     };
     reset=(req,res)=>{
-        console.log(req);
         userService.reset(req.body,(err,data)=>{
             if(err){
-                console.log(err);
                 logger.error(err);
                 res.status(err.statusCode).send(err.message);
             }
             else{
-                console.log("resetted password successfully");
                 logger.info("resetted password successfully");
                 res.status(200).send("password resetted");
             }
