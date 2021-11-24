@@ -36,12 +36,13 @@ class NoteModel{
         });
     };
 
-    updateNote=(_id,title,content,callback)=>{
+    updateNote=(_id,title,content,trash,callback)=>{
         FundooNote.findByIdAndUpdate(
             _id,
             {
                 title:title,
-                content:content
+                content:content,
+                trash:trash
             },
             {
                 new:true
