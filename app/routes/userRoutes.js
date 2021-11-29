@@ -8,13 +8,11 @@ const Middleware = require('../middleware/userMiddleware');
 
 userRoute.post(
     "/login",
-    cors(),
     userController.loginUser
 )
 
 userRoute.post(
     "/create",
-    cors(),
     body("firstName")
     .matches("^[A-Z][a-zA-Z]{2,}")
     .withMessage(
@@ -38,13 +36,11 @@ userRoute.post(
 
 userRoute.get(
   "/getuser",
-  cors(),
   userController.getUser
 );
 
 userRoute.put(
     "/update/:userID",
-    cors(),
     body("firstName")
     .matches("^[A-Z][a-zA-Z]{2,}")
     .withMessage(
@@ -68,19 +64,16 @@ userRoute.put(
 
 userRoute.delete(
   "/deleteuser/:userID",
-  cors(),
   userController.deleteUser
 );
 
 userRoute.post(
   "/forgotpass",
-  cors(),
   userController.forgotpass
 )
 
 userRoute.post(
   "/reset/:token",
-  cors(),
   Middleware.verifyJwt,
   userController.reset,
 )

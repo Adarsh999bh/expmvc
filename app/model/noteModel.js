@@ -3,10 +3,12 @@ const noteSchema = mongoose.Schema({
     title:String,
     content:String,
     trash:Boolean,
+    color:String,
+    imgFile:String,
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"FundooNoteUser"
-    }
+    },
 },{
     timestamps:true
 });
@@ -19,7 +21,8 @@ class NoteModel{
             title:body.title || "undefined",
             content:body.content,
             trash:body.trash,
-            userId:body._id
+            userId:body._id,
+            imgFile:"",
         });
         note.save((err,data)=>{
             err ? 
@@ -36,13 +39,15 @@ class NoteModel{
         });
     };
 
-    updateNote=(_id,title,content,trash,callback)=>{
+    updateNote=(_id,title,content,trash,color,image,callback)=>{
         FundooNote.findByIdAndUpdate(
             _id,
             {
                 title:title,
                 content:content,
-                trash:trash
+                trash:trash,
+                color:color,
+                imgFile:image,
             },
             {
                 new:true

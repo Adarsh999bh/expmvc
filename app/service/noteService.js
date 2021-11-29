@@ -19,7 +19,7 @@ class NoteService{
     };
 
     updateNote=(body,callback)=>{
-        noteModel.updateNote(body.cardId,body.title,body.content,body.trash,(err,data)=>{
+        noteModel.updateNote(body.cardId,body.title,body.content,body.trash,body.color,body.image,(err,data)=>{
             err ?
             callback(err,null):
             callback(null,data);
