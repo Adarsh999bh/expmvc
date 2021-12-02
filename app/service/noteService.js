@@ -1,6 +1,4 @@
 const noteModel = require('../model/noteModel');
-const NoteModel=require('../model/noteModel');
-
 class NoteService{
     createNote=(body,callback)=>{
         noteModel.createNote(body,(err,data)=>{

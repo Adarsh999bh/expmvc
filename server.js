@@ -10,22 +10,7 @@ const userRouter=require('./app/routes/userRoutes');
 
 const noteRouter=require('./app/routes/noteRoutes');
 
-const multer=require('multer');
-
-const path=require('path')
-
-const middleware=require('./app/middleware/userMiddleware');
-
-const storage=multer.diskStorage({
-    destination:'./uploads/images/',
-    filename:(req,file,callback)=>{
-        callback(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
-    }
-})
-
-const upload=multer({
-    storage:storage,
-}).single('image');
+const labelRouter=require('./app/routes/labelRoutes');
 
 const app=express();
 
@@ -43,20 +28,7 @@ app.use('/user',userRouter);
 
 app.use('/notes',noteRouter);
 
-
-app.post('/upload-image',
-middleware.verifyJwt,
-(req,res)=>{
-    upload(req,res, err => {
-        if(err){
-            res.status(400).send(err);
-        }
-        else{
-            console.log(req.file);
-            res.status(200).send(req.file)
-        }
-    })
-})
+app.use('/label',labelRouter);
 
 app.use(express.static('uploads'))
 

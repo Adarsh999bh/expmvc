@@ -1,6 +1,7 @@
 const NoteService=require('../service/noteService');
 const logger=require('../../config/logger');
 const noteService = require('../service/noteService');
+const multerStorage=require('../../utility/createMulter');
 
 class NoteController{
     createNote=(req,res)=>{
@@ -53,6 +54,18 @@ class NoteController{
             }
         });
     };
+    uploadImage = (req, res) => {
+        const upload = multerStorage();
+        upload(req, res, (err) => {
+          if (err) {
+            logger.error("Could not upload image", err);
+            res.status(400).send(err);
+          } else {
+            logger.info(res);
+            res.status(200).send(req.file);
+          }
+        });
+      };
 }
 
 module.exports=new NoteController();

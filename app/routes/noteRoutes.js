@@ -3,7 +3,6 @@ const noteRoute = express.Router();
 const noteMiddleware = require('../middleware/noteMiddleware');
 const userMiddleware = require('../middleware/userMiddleware');
 const noteController = require("../controller/noteController");
-const cors=require("cors");
 
 noteRoute.post(
     "/create",
@@ -26,6 +25,11 @@ noteRoute.delete(
     "/delete",
     userMiddleware.verifyJwt,
     noteController.deleteNote
+);
+
+noteRoute.post("/upload-image",
+    userMiddleware.verifyJwt,
+    noteController.uploadImage
 );
 
 module.exports=noteRoute
