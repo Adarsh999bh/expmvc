@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const { promisify } = require("util");
+const fs = require("fs");
+const unlinkAsync = promisify(fs.unlink);
+const logger=require('../../config/logger')
 const noteSchema = mongoose.Schema({
     title:String,
     content:String,
@@ -64,8 +68,19 @@ class NoteModel{
         FundooNote.findByIdAndDelete(
             _id,
             (err,data)=>{
-                err ?
-                callback(err,null):
+                if(err){
+                    callback(err,null)
+                }
+                else{
+                    unlinkAsync(
+                        `C:\\Users\\adarsh.bhandary_ymed\\Desktop\\bridgelabz\\expmvc\\uploads\\images\\${data.imgFile}`,
+                        (err, res) => {
+                          if (err) {
+                            logger.error(err);
+                          }
+                        }
+                    );
+                }
                 callback(null,data);
             }
         );
