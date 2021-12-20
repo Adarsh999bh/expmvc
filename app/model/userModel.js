@@ -1,3 +1,12 @@
+/* ************************************************************************
+ * Execution        : 1. default node  cmd> nodemon server.js              
+ * @descrition      : set up the server and connects to the database
+ * @file            : server.js
+ * @author          : Adarsh Bhandary
+ * @version         : 1.0
+ * @since           : 9-Nov-2021
+ * 
+ **************************************************************************/
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const userSchema = mongoose.Schema(
@@ -27,6 +36,12 @@ const myUser = mongoose.model("FundooNoteUser", userSchema);
 
 class UserModel{
 
+     /**
+     * @description updates user details
+     * @param {Object} body 
+     * @param {function} callback 
+     * @returns user
+     */
     loginUser = (body,callback)=>{
         return myUser.findOne({email:body.email}, (err,data) => {
             return err ? 
@@ -43,6 +58,11 @@ class UserModel{
         });
     };
 
+    /**
+     * @description creates user
+     * @param {Object} body 
+     * @param {function} callback 
+     */
     createUser = (body,callback)=>{
         let encryptedPassword=bcrypt.hashSync(body.password,10);
         let user=new myUser({
@@ -62,6 +82,12 @@ class UserModel{
         });
     };
 
+    /**
+     * @description resets user password
+     * @param {String} userID 
+     * @param {Object} body 
+     * @param {function} callback 
+     */
     reset=(userID,body,callback)=>{
         let encryptedPassword=bcrypt.hashSync(body.password,10);
         myUser.findByIdAndUpdate(
@@ -83,6 +109,12 @@ class UserModel{
         );
     };
 
+    /**
+     * @description updates user details
+     * @param {String} userID 
+     * @param {Object} body 
+     * @param {function} callback 
+     */
     updateUser = (userID,body,callback) => {
 
         myUser.findByIdAndUpdate(
@@ -107,6 +139,12 @@ class UserModel{
         );
     };
 
+    /**
+     * @description deletes user
+     * @param {String} userID 
+     * @param {function} callback 
+     * @returns deleted user
+     */
     deleteUser = (userID,callback) => {
         return myUser.findByIdAndRemove(userID,(err,data)=>{
             return err ? 
@@ -118,6 +156,12 @@ class UserModel{
         });
     };
 
+    /**
+     * 
+     * @param {*} email 
+     * @param {*} callback 
+     * @returns 
+     */
     getUser = (email,callback) =>{
         return myUser.findOne({email:email},(err,data)=>{
             return err ? 

@@ -1,11 +1,24 @@
+/* ************************************************************************
+ * Execution        : 1. default node  cmd> nodemon server.js              
+ * @descrition      : set up the server and connects to the database
+ * @file            : server.js
+ * @author          : Adarsh Bhandary
+ * @version         : 1.0
+ * @since           : 9-Nov-2021
+ * 
+ **************************************************************************/
 const userService=require('../service/userService')
 const { validationResult } = require("express-validator");
 const logger = require('../../config/logger');
-const { response } = require('express');
 
 
 class UserController{
 
+    /**
+     * @description handles request and response login user
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     loginUser=(req,res)=>{
         let body = req.body;
         userService.loginUser(body,(err,data)=>{
@@ -23,11 +36,17 @@ class UserController{
 
     };
 
+    /**
+     * @description handles request and response to create user
+     * @param {Object} req 
+     * @param {Object} res 
+     * @returns 
+     */
     createUser=(req,res)=>{
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             logger.error(errors);
-            res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ errors: errors.array() });
         }
         let body=req.body;
         userService.createUser(body,(err,data)=>{
@@ -44,6 +63,11 @@ class UserController{
         });
     };
 
+    /**
+     * @description handles request and response to update user
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     updateUser=(req,res)=>{
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -66,6 +90,11 @@ class UserController{
         });
     };
 
+    /**
+     * @description handles request and response for delete user
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     deleteUser=(req,res)=>{
         let userID=req.params.userID;
         userService.deleteUser(userID,(err,data)=>{
@@ -82,6 +111,11 @@ class UserController{
         });
     };
 
+    /**
+     * @description handles request and response get user
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     getUser=(req,res)=>{
         userService.getUser(req.body.email,(err,data)=>{
             if(err){
@@ -97,6 +131,11 @@ class UserController{
         });
     };
 
+    /**
+     * @description handles request and response forgot password
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     forgotpass=(req,res)=>{
         userService.forgotpass(req.body.email,(err,data)=>{
             if(err){
@@ -109,6 +148,12 @@ class UserController{
             }
         });
     };
+
+    /**
+     * @description handles request and response for reset password
+     * @param {Object} req 
+     * @param {Object} res 
+     */
     reset=(req,res)=>{
         userService.reset(req.body,(err,data)=>{
             if(err){

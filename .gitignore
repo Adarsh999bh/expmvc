@@ -2,3 +2,5 @@ node_modules
 logs
 .env
 uploads
+.nyc_output
+test/*.json

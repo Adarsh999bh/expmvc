@@ -1,7 +1,15 @@
+/* ************************************************************************
+ * Execution        : 1. default node  cmd> nodemon server.js              
+ * @descrition      : set up the server and connects to the database
+ * @file            : server.js
+ * @author          : Adarsh Bhandary
+ * @version         : 1.0
+ * @since           : 9-Nov-2021
+ * 
+ **************************************************************************/
 const express=require('express');
 const userRoute=express.Router();
 const { body } = require('express-validator');
-const cors=require('cors');
 const userController = require('../controller/userController');
 const Middleware = require('../middleware/userMiddleware');
 

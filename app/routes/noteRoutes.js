@@ -1,3 +1,12 @@
+/* ************************************************************************
+ * Execution        : 1. default node  cmd> nodemon server.js              
+ * @descrition      : set up the server and connects to the database
+ * @file            : server.js
+ * @author          : Adarsh Bhandary
+ * @version         : 1.0
+ * @since           : 9-Nov-2021
+ * 
+ **************************************************************************/
 const express = require("express");
 const noteRoute = express.Router();
 const noteMiddleware = require('../middleware/noteMiddleware');

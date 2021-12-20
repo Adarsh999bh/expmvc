@@ -1,3 +1,14 @@
+/* ************************************************************************
+ * Execution        : 1. default node  cmd> nodemon userService.js              
+ * @descrition      : set up the server and connects to the database
+ * @file            : userService.js
+ * @author          : Adarsh Bhandary
+ * @version         : 1.0
+ * @since           : 9-Nov-2021
+ * 
+ **************************************************************************/
+
+//importing required modules
 const userModel=require('../model/userModel');
 const bcrypt=require('bcrypt');
 const {generateToken}=require('../../utility/jwt');
@@ -5,6 +16,12 @@ const {createEmail}=require('../../utility/mailer');
 
 class UserService{
 
+    /**
+     * @description logs the user in by cmparing password enrtered
+     * and hashed password from the database
+     * @param {Object} body 
+     * @param {Callback} callback 
+     */
     loginUser=(body,callback)=>{
         userModel.loginUser(body,(err,data)=>{
             if(err){
@@ -36,6 +53,11 @@ class UserService{
         });
     };
 
+    /**
+     * @description create user function in service layer
+     * @param {Object} body 
+     * @param {callback} callback 
+     */
     createUser=(body,callback)=>{
 
         userModel.createUser(body,(err,data)=>{
@@ -48,6 +70,12 @@ class UserService{
         });
     };
 
+    /**
+     * @description service layer for updating user
+     * @param {String} userID 
+     * @param {Object} body 
+     * @param {callback} callback 
+     */
     updateUser=(userID,body,callback)=>{
 
         userModel.updateUser(userID,body,(err,data)=>{
@@ -60,6 +88,11 @@ class UserService{
         });
     };
 
+    /**
+     * @description delete user in service layer
+     * @param {String} userID 
+     * @param {callback} callback 
+     */
     deleteUser=(userID,callback)=>{
 
         userModel.deleteUser(userID,(err,data)=>{
@@ -71,6 +104,12 @@ class UserService{
             callback(null,data);
         });
     };
+
+    /**
+     * @description delete user in service layer
+     * @param {String} email 
+     * @param {callback} callback 
+     */
     getUser=(email,callback)=>{
         userModel.getUser(email,(err,data)=>{
             err ?
@@ -82,6 +121,11 @@ class UserService{
         });
     };
 
+    /**
+     * @description sends email to the client to reset password
+     * @param {String} email 
+     * @param {callback} callback 
+     */
     forgotpass=(email,callback)=>{
         userModel.getUser(email,(err,data)=>{
             if(err){
@@ -107,6 +151,12 @@ class UserService{
             }
         });
     };
+
+    /**
+     * @description resets the password for the user
+     * @param {Object} body 
+     * @param {callback} callback 
+     */
     reset=(body,callback)=>{
         userModel.reset(body._id,body,(err,data)=>{
             err ?
@@ -119,4 +169,5 @@ class UserService{
     };
 }
 
+//exporting the object of userService
 module.exports=new UserService();
