@@ -11,18 +11,18 @@
 //importing required modules
 const noteModel = require('../model/noteModel');
 
-class NoteService{
+class NoteService {
 
     /**
      * @description create note service layer
      * @param {Object} body 
      * @param {callback} callback 
      */
-    createNote=(body,callback)=>{
-        noteModel.createNote(body,(err,data)=>{
+    createNote = (body, callback) => {
+        noteModel.createNote(body, (err, data) => {
             err ?
-            callback(err,null):
-            callback(null,data);
+                callback(err, null) :
+                callback(null, data);
         });
     };
 
@@ -31,7 +31,7 @@ class NoteService{
      * @param {Object} body 
      * @param {callback} callback 
      */
-    getNote=(body,callback)=>{
+     getNote=(body,callback)=>{
         noteModel.getNote(body._id,(err,data)=>{
             err ?
             callback(err,null):
@@ -44,11 +44,11 @@ class NoteService{
      * @param {Object} body 
      * @param {function} callback 
      */
-    updateNote=(body,callback)=>{
-        noteModel.updateNote(body.cardId,body.title,body.content,body.trash,body.color,body.image,(err,data)=>{
+    updateNote = (body, callback) => {
+        noteModel.updateNote(body.cardId, body.title, body.content, body.trash, body.color, body.image, (err, data) => {
             err ?
-            callback(err,null):
-            callback(null,data);
+                callback(err, null) :
+                callback(null, data);
         });
     };
 
@@ -57,13 +57,13 @@ class NoteService{
      * @param {Object} body 
      * @param {function} callback 
      */
-    deleteNote=(body,callback)=>{
-        noteModel.deleteNote(body.cardId,(err,data)=>{
+    deleteNote = (body, callback) => {
+        noteModel.deleteNote(body.cardId, (err, data) => {
             err ?
-            callback(err,null):
-            callback(null,data);
+                callback(err, null) :
+                callback(null, data);
         });
     };
 
 }
-module.exports=new NoteService();
+module.exports = new NoteService();

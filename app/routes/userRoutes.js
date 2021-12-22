@@ -47,6 +47,11 @@ userRoute.get(
   userController.getUser
 );
 
+userRoute.get(
+  "/findall",
+  userController.findAllUser
+);
+
 userRoute.put(
     "/update/:userID",
     body("firstName")

@@ -13,6 +13,7 @@ const userModel=require('../model/userModel');
 const bcrypt=require('bcrypt');
 const {generateToken}=require('../../utility/jwt');
 const {createEmail}=require('../../utility/mailer');
+const redis=require('../../utility/redis/cache')
 
 class UserService{
 
@@ -167,6 +168,19 @@ class UserService{
             callback(null,data);
         });
     };
+    findAllUser = async () => {
+        try {
+          let data = await redis.getUser("user")
+          if(data === null){
+            data = await userModel.findAllUser();
+            await redis.setUser("user",JSON.stringify(data))
+          }
+          await redis.closeConnection();
+          return JSON.parse(data);
+        } catch (error) {
+          throw error;
+        }
+      };
 }
 
 //exporting the object of userService

@@ -9,5 +9,6 @@
  **************************************************************************/
 //exporting mongodb database url
 module.exports = {
-    url: 'mongodb://localhost:27017/ReactAppNotes'
+    url: `mongodb://localhost:27017/ReactAppNotes`
 }
+//mongodb+srv://Adarsh99bh:ADA@#123bb@cluster0.wd7kb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority

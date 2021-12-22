@@ -24,6 +24,7 @@ exports.dbConnection=()=>{
         //logg success connection here    
     }).catch(err => {
         //logg error here
+        console.log("error")
         logger.error(err)
         process.exit();
     });

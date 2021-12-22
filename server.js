@@ -29,6 +29,12 @@ const noteRouter=require('./app/routes/noteRoutes');
 //importing label routes
 const labelRouter=require('./app/routes/labelRoutes');
 
+//importing swaggerui
+const swaggerUi = require("swagger-ui-express");
+
+//importing swagger json
+const swaggerDocument = require("./swagger.json");
+
 //creating an express app
 const app=express();
 
@@ -57,6 +63,8 @@ app.use('/label',labelRouter);
 
 //adding static route to access image files in frontend
 app.use(express.static('uploads'))
+
+//app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /**
  * @description creates server and listens at specified port also connects the
