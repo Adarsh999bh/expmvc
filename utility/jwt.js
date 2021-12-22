@@ -26,7 +26,7 @@ exports.generateToken = (tokenGenCreds) => {
       email: tokenGenCreds.email,
       _id: tokenGenCreds._id
     },
-    process.env.mySecretKey,
+    process.env.mysecretkey,
     { expiresIn: tokenGenCreds.expiresIn }
   );
 };
@@ -38,7 +38,7 @@ exports.generateToken = (tokenGenCreds) => {
  * @returns callback
  */
 exports.verifyToken = (token,callback) => {
-   return jwt.verify(token, process.env.mySecretKey,(err,data)=>{
+   return jwt.verify(token, process.env.mysecretkey,(err,data)=>{
     return err ? callback(err, null) : callback(null, data);
    });
 };
