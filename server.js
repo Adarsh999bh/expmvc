@@ -14,6 +14,9 @@ const express=require('express');
 //import cors
 const cors=require('cors');
 
+//getting dot env configs
+require('dotenv').config();
+
 //import db connection function
 const dbconn=require('./config/dbConnection');
 
@@ -74,7 +77,7 @@ app.use(express.static('uploads'))
  * @param callback function that will called to connect to database on successful
  *  creation of server
  */
-const server=app.listen(4000,()=>{
+const server=app.listen(process.env.PORT,()=>{
 
     dbconn.dbConnection();
 

@@ -7,8 +7,9 @@
  * @since           : 9-Nov-2021
  * 
  **************************************************************************/
+//getting dot env configs
+require('dotenv').config();
 //exporting mongodb database url
 module.exports = {
-    url: `mongodb://localhost:27017/ReactAppNotes`
+    url: process.env.mongourl
 }
-//mongodb+srv://Adarsh99bh:ADA@#123bb@cluster0.wd7kb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
